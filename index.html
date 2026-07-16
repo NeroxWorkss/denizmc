@@ -1,0 +1,291 @@
+ <!DOCTYPE html>
+  <html lang="tr">
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="DenizMC Minecraft sunucusu — Java + Bedrock giriş adresleri, özellikler ve Pozi &
+  Kıtır.">
+  <title>DenizMC — Minecraft Sunucusu</title>
+  <style>
+    :root{
+      --bg:#dcefd4; --ink:#1d2916; --muted:#586a4c; --panel:#ffffff; --panel2:#eef5e9;
+      --edge:#26331b; --grass:#5ba83b; --grass-d:#3e7e28; --dirt:#7a5230; --stone:#9a9a9a;
+      --sky-top:#77c2f1; --sky-bot:#bce6ff; --accent:#12b3a2; --accent-d:#0c8577; --gold:#e6b325;
+      --shadow:rgba(29,41,22,.22); --hard:#26331b;
+    }
+    @media (prefers-color-scheme:dark){
+      :root{
+        --bg:#11151d; --ink:#e8eff7; --muted:#8f9db2; --panel:#1b222e; --panel2:#232c3b;
+        --edge:#080b11; --grass:#4f9a33; --grass-d:#356b21; --dirt:#6a4526; --stone:#7d7d7d;
+        --sky-top:#0e1830; --sky-bot:#243350; --accent:#33e0ce; --accent-d:#1fb4a4; --gold:#f2c744;
+        --shadow:rgba(0,0,0,.5); --hard:#05070c;
+      }
+    }
+    :root[data-theme="light"]{
+      --bg:#dcefd4; --ink:#1d2916; --muted:#586a4c; --panel:#ffffff; --panel2:#eef5e9;
+      --edge:#26331b; --grass:#5ba83b; --grass-d:#3e7e28; --dirt:#7a5230; --stone:#9a9a9a;
+      --sky-top:#77c2f1; --sky-bot:#bce6ff; --accent:#12b3a2; --accent-d:#0c8577; --gold:#e6b325;
+      --shadow:rgba(29,41,22,.22); --hard:#26331b;
+    }
+    :root[data-theme="dark"]{
+      --bg:#11151d; --ink:#e8eff7; --muted:#8f9db2; --panel:#1b222e; --panel2:#232c3b;
+      --edge:#080b11; --grass:#4f9a33; --grass-d:#356b21; --dirt:#6a4526; --stone:#7d7d7d;
+      --sky-top:#0e1830; --sky-bot:#243350; --accent:#33e0ce; --accent-d:#1fb4a4; --gold:#f2c744;
+      --shadow:rgba(0,0,0,.5); --hard:#05070c;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{background:var(--bg);color:var(--ink);
+      font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6;
+      -webkit-font-smoothing:antialiased;}
+    .mono{font-family:ui-monospace,"SFMono-Regular",Menlo,"Courier New",monospace;}
+    .wrap{max-width:1000px;margin:0 auto;padding:0 20px;}
+    h1,h2,h3{margin:0;text-wrap:balance;font-family:ui-monospace,"SFMono-Regular",Menlo,"Courier New",monospace;
+      text-transform:uppercase;letter-spacing:.04em;font-weight:800;line-height:1.05;}
+    .hero{position:relative;overflow:hidden;border-bottom:5px solid var(--edge);}
+    #scene{display:block;width:100%;height:340px;image-rendering:pixelated;}
+    .hero-copy{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
+      align-items:center;text-align:center;padding:20px;}
+    .title{font-size:clamp(2.6rem,9vw,5.5rem);color:#fff;
+      text-shadow:4px 4px 0 rgba(0,0,0,.45),0 0 2px rgba(0,0,0,.5);}
+    .title .mc{color:var(--gold);}
+    .tag{margin-top:.5rem;color:#fff;font-weight:600;font-size:clamp(.95rem,2.6vw,1.2rem);
+      text-shadow:2px 2px 0 rgba(0,0,0,.5);background:rgba(0,0,0,.28);padding:.35em .8em;
+      border:2px solid rgba(0,0,0,.35);}
+    .online{display:inline-flex;align-items:center;gap:.5em;margin-top:1rem;background:rgba(0,0,0,.35);
+      color:#fff;padding:.4em .9em;border:2px solid rgba(0,0,0,.4);font-weight:700;font-size:.85rem;
+      letter-spacing:.03em;}
+    .dot{width:11px;height:11px;background:#4ade5b;border:2px solid #14611f;
+      box-shadow:0 0 8px #4ade5b;animation:pulse 1.8s infinite;}
+    @keyframes pulse{50%{opacity:.45}}
+    section{padding:52px 0;}
+    .eyebrow{font-family:ui-monospace,monospace;text-transform:uppercase;letter-spacing:.18em;
+      font-size:.72rem;font-weight:700;color:var(--accent-d);margin-bottom:.5rem;}
+    .sec-title{font-size:clamp(1.5rem,4.5vw,2.1rem);margin-bottom:1.6rem;}
+    .card{background:var(--panel);border:4px solid var(--edge);box-shadow:6px 6px 0 var(--shadow);}
+    .join-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+    .join{padding:22px;display:flex;flex-direction:column;gap:12px;}
+    .join .cap{display:flex;align-items:center;gap:.55em;font-weight:800;font-size:1.15rem;
+      font-family:ui-monospace,monospace;text-transform:uppercase;letter-spacing:.03em;}
+    .badge{font-size:.68rem;font-weight:700;padding:.25em .6em;border:2px solid var(--edge);
+      background:var(--panel2);letter-spacing:.05em;}
+    .addr-row{display:flex;gap:0;border:3px solid var(--edge);background:var(--panel2);}
+    .addr{flex:1;min-width:0;padding:11px 13px;font-family:ui-monospace,monospace;font-weight:700;
+      font-size:.98rem;overflow-x:auto;white-space:nowrap;color:var(--ink);}
+    .copy{border:0;border-left:3px solid var(--edge);background:var(--grass);color:#fff;
+      font-family:ui-monospace,monospace;font-weight:800;text-transform:uppercase;font-size:.72rem;
+      letter-spacing:.04em;padding:0 16px;cursor:pointer;transition:background .12s;}
+    .copy:hover{background:var(--grass-d);}
+    .copy:active{transform:translateY(2px);}
+    .copy.ok{background:var(--accent);}
+    .join small{color:var(--muted);font-size:.85rem;}
+    .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+    .feat{padding:20px;display:flex;flex-direction:column;gap:8px;transition:transform .12s,box-shadow .12s;}
+    .feat:hover{transform:translate(-2px,-2px);box-shadow:9px 9px 0 var(--shadow);}
+    .feat .ic{font-size:2rem;line-height:1;}
+    .feat h3{font-size:1.05rem;}
+    .feat .cmd{font-family:ui-monospace,monospace;color:var(--accent-d);font-weight:800;font-size:.85rem;}
+    .feat p{margin:0;color:var(--muted);font-size:.92rem;}
+    .cats{display:grid;grid-template-columns:auto
+  1fr;gap:26px;align-items:center;padding:26px;background:var(--panel2);}
+    .catpix{display:flex;gap:18px;}
+    .pixcat{width:88px;height:88px;image-rendering:pixelated;}
+    .cats h2{font-size:clamp(1.4rem,4vw,1.9rem);margin-bottom:.5rem;}
+    .cats p{margin:.2rem 0;color:var(--muted);}
+    .cats b{color:var(--ink);}
+    .steps{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+    .step{padding:20px;}
+    .step h3{font-size:1rem;margin-bottom:.6rem;display:flex;gap:.5em;align-items:center;}
+    .step ol{margin:0;padding-left:1.1rem;color:var(--muted);}
+    .step ol li{margin:.3rem 0;}
+    .step ol li b{color:var(--ink);}
+    footer{border-top:5px solid var(--edge);background:var(--panel);padding:30px 0;text-align:center;}
+    footer .mono{color:var(--muted);font-size:.85rem;}
+    footer .big{font-family:ui-monospace,monospace;font-weight:800;text-transform:uppercase;
+      letter-spacing:.05em;font-size:1.1rem;color:var(--ink);margin-bottom:.4rem;}
+    .theme-toggle{position:fixed;top:14px;right:14px;z-index:20;background:var(--panel);
+      border:3px solid var(--edge);box-shadow:3px 3px 0 var(--shadow);color:var(--ink);
+      font-size:1.1rem;width:44px;height:44px;cursor:pointer;line-height:1;}
+    .theme-toggle:active{transform:translateY(2px);}
+    :focus-visible{outline:3px solid var(--accent);outline-offset:2px;}
+    @media(max-width:720px){
+      .join-grid,.feat-grid,.steps{grid-template-columns:1fr;}
+      .cats{grid-template-columns:1fr;text-align:center;}
+      .catpix{justify-content:center;}
+      #scene{height:270px;}
+    }
+    @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+  </style>
+  </head>
+  <body>
+  <button class="theme-toggle" id="tt" aria-label="Tema değiştir">🌙</button>
+
+  <header class="hero">
+    <canvas id="scene" width="1000" height="340" aria-hidden="true"></canvas>
+    <div class="hero-copy">
+      <h1 class="title">Deniz<span class="mc">MC</span></h1>
+      <div class="tag">Survival &amp; Towny · Java + Bedrock · 1.21+</div>
+      <span class="online"><span class="dot"></span> SUNUCU AÇIK — HERKESE!</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="wrap">
+      <div class="eyebrow">// Nasıl Girilir</div>
+      <h2 class="sec-title">Adresi kopyala, sunucuya ekle, gir 🎮</h2>
+      <div class="join-grid">
+        <div class="card join">
+          <div class="cap">☕  Java <span class="badge">PC / Laptop</span></div>
+          <div class="addr-row">
+            <div class="addr" id="a1">wince-sculpture.gl.joinmc.link</div>
+            <button class="copy" data-target="a1">Kopyala</button>
+          </div>
+          <small>Minecraft Java (TLauncher veya orijinal) → Çok Oyunculu → Sunucu Ekle → adresi yapıştır.</small>
+        </div>
+        <div class="card join">
+          <div class="cap">📱 Bedrock <span class="badge">Telefon / Tablet</span></div>
+          <div class="addr-row">
+            <div class="addr" id="a2">147.185.221.212</div>
+            <button class="copy" data-target="a2">Kopyala</button>
+          </div>
+          <small>Sunucu Ekle → IP'yi yapıştır, Port kısmına <b class="mono">31044</b> yaz. Telefondan da
+  girilir!</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <div class="eyebrow">// Özellikler</div>
+      <h2 class="sec-title">Bu sunucuda neler var? 🔥</h2>
+      <div class="feat-grid">
+        <div class="card feat"><div class="ic">🏍️</div><h3>MT-07</h3><div class="cmd">/mt07</div>
+          <p>Süper hızlı, zıplayan, duman atan motor-atına bin. Wheelie serbest 😎</p></div>
+        <div class="card feat"><div class="ic">😺</div><h3>Kedileri Çağır</h3><div class="cmd">/kedi</div>
+          <p>Pozi ve Kıtır yanında belirir, peşinden gelir. Sunucunun maskotları!</p></div>
+        <div class="card feat"><div class="ic">⛏️</div><h3>Anında Kırma</h3><div class="cmd">bir vur = hepsi</div>
+          <p>Bir odunu kır, bütün ağaç düşsün. Cevher damarları tek seferde.</p></div>
+        <div class="card feat"><div class="ic">🛡️</div><h3>Arazi Koruma</h3><div class="cmd">/claimal</div>
+          <p>Altın kürekle evini claim'le. Kimse dokunamaz, sana özel.</p></div>
+        <div class="card feat"><div class="ic">🔒</div><h3>Sandık Kilidi</h3><div class="cmd">tabela ile</div>
+          <p>Sandığına tabela as, kilitlensin. Eşyaların güvende.</p></div>
+        <div class="card feat"><div class="ic">🏘️</div><h3>Survival + Towny</h3><div class="cmd">/gosurvival ·
+  /gotowny</div>
+          <p>İki dünya: klasik survival ve kasaba kur-yönet Towny modu.</p></div>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <div class="card cats">
+        <div class="catpix">
+          <canvas class="pixcat" id="pozi" width="11" height="11" aria-label="Pozi, beyaz kedi"></canvas>
+          <canvas class="pixcat" id="kitir" width="11" height="11" aria-label="Kıtır, tekir kedi"></canvas>
+        </div>
+        <div>
+          <div class="eyebrow">// Maskotlar</div>
+          <h2>Pozi &amp; Kıtır 🐾</h2>
+          <p><b>Pozi</b> — beyaz Ankara kedisi, sunucunun patronu.</p>
+          <p><b>Kıtır</b> — tekir, hızlı ve haylaz. İkisini <b class="mono">/kedi</b> ile çağır!</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <div class="eyebrow">// İlk Kez mi Giriyorsun?</div>
+      <h2 class="sec-title">3 adımda içeridesin</h2>
+      <div class="steps">
+        <div class="card step"><h3>☕  Java (Bilgisayar)</h3>
+          <ol><li>Minecraft'ı aç (<b>1.21+</b> sürüm)</li><li><b>Çok Oyunculu → Sunucu Ekle</b></li>
+          <li>Adresi yapıştır, <b>Bitti → Katıl</b> 🎉</li></ol></div>
+        <div class="card step"><h3>📱 Bedrock (Telefon)</h3>
+          <ol><li>Minecraft'ı aç → <b>Oyna → Sunucular</b></li><li><b>Sunucu Ekle</b>: IP + Port <b
+  class="mono">31044</b></li>
+          <li>Kaydet ve <b>gir</b> 🎉</li></ol></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="big">DenizMC 🟩 </div>
+      <div class="mono">Deniz tarafından yapıldı · Pozi &amp; Kıtır onaylı 😺 · İyi oyunlar!</div>
+    </div>
+  </footer>
+
+  <script>
+  (function(){
+    var root=document.documentElement, tt=document.getElementById('tt');
+    function isDark(){
+      var a=root.getAttribute('data-theme');
+      if(a) return a==='dark';
+      return window.matchMedia('(prefers-color-scheme:dark)').matches;
+    }
+    function syncBtn(){ tt.textContent=isDark()?'☀️':'🌙'; }
+    tt.addEventListener('click',function(){
+      root.setAttribute('data-theme', isDark()?'light':'dark'); syncBtn(); drawScene();
+    });
+    window.matchMedia('(prefers-color-scheme:dark)').addEventListener('change',function(){syncBtn();drawScene();});
+
+    document.querySelectorAll('.copy').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        var t=document.getElementById(btn.dataset.target).textContent.trim();
+        navigator.clipboard.writeText(t).then(function(){
+          var old=btn.textContent; btn.textContent='✓ Kopyalandı'; btn.classList.add('ok');
+          setTimeout(function(){btn.textContent=old;btn.classList.remove('ok');},1400);
+        }).catch(function(){
+          var r=document.createRange();r.selectNodeContents(document.getElementById(btn.dataset.target));
+          var s=getSelection();s.removeAllRanges();s.addRange(r);
+        });
+      });
+    });
+
+    var cv=document.getElementById('scene'), cx=cv.getContext('2d'), P=10;
+    function px(x,y,c){cx.fillStyle=c;cx.fillRect(x*P,y*P,P,P);}
+    function drawScene(){
+      var W=cv.width,H=cv.height,cols=W/P,rows=H/P,dark=isDark();
+      var top=dark?['#0c1430','#12203f','#1b2c50']:['#79c2f1','#96d3f6','#bce6ff'];
+      for(var r=0;r<rows;r++){var seg=Math.min(2,Math.floor(r/(rows/3)));cx.fillStyle=top[seg];cx.fillRect(0,r*P,W,P);}
+      if(dark){
+        cx.fillStyle='#dfe8ff';
+        [[8,3],[15,5],[22,2],[31,6],[40,3],[52,5],[63,2],[74,6],[85,4],[92,2],[27,8],[58,8]].forEach(function(p){cx.fill  Rect(p[0]*P,p[1]*P,P,P);});
+        var mx=80,my=4;px(mx,my,'#eef2f8');px(mx+1,my,'#eef2f8');px(mx,my+1,'#eef2f8');px(mx+1,my+1,'#dfe6f0');px(mx+2,m  y,'#dfe6f0');px(mx,my+2,'#dfe6f0');
+      } else {
+        cx.fillStyle='#ffffff';
+
+  [[6,4,4],[7,4,1],[10,5,3],[70,3,5],[71,4,2],[40,6,4]].forEach(function(c){cx.fillRect(c[0]*P,c[1]*P,c[2]*P,P);});
+        cx.fillStyle='#ffe14d';cx.fillRect(83*P,3*P,4*P,4*P);cx.fillStyle='#ffd21a';cx.fillRect(84*P,4*P,2*P,2*P);
+      }
+      var g=Math.floor(rows*0.62);
+      for(var xc=0;xc<cols;xc++){
+        var gr=g+(((xc*13)%9===0)?-1:0);
+        px(xc,gr,dark?'#3f7a28':'#63b23f');
+        cx.fillStyle=dark?'#4f9a33':'#7ccb50';cx.fillRect(xc*P,gr*P,P,P*0.35);
+        for(var d=gr+1;d<rows;d++){
+          var dirt=dark?((d+xc)%2?'#5c3a1f':'#664326'):((d+xc)%2?'#7a5230':'#875c37');
+          px(xc,d,dirt);
+          if((xc*3+d*5)%17===0){cx.fillStyle=dark?'#4a2f19':'#6b4529';cx.fillRect(xc*P,d*P,P,P);}
+        }
+      }
+      var tx=18,ty=g-1;
+      for(var t=0;t<3;t++){px(tx,ty-t,dark?'#5a3d22':'#6f4a29');}
+      var leaf=dark?'#2f6b26':'#4d9b39',leaf2=dark?'#3c7d30':'#5eb046';
+      [[-2,-4],[-1,-4],[0,-4],[1,-4],[2,-4],[-2,-5],[-1,-5],[0,-5],[1,-5],[-1,-6],[0,-6],[-2,-3],[2,-3]].forEach(functio  n(o,i){px(tx+o[0],ty+o[1],i%3?leaf:leaf2);});
+      var ox=60,oy=g+3;px(ox,oy,dark?'#6a6a6a':'#8a8a8a');
+      cx.fillStyle=dark?'#33e0ce':'#12b3a2';cx.fillRect(ox*P+2,oy*P+2,3,3);cx.fillRect(ox*P+6,oy*P+5,3,3);
+    }
+    syncBtn();drawScene();
+
+    function paintCat(id,base,stripe){
+      var c=document.getElementById(id);if(!c)return;var g=c.getContext('2d');
+      var M=["01000000010","01100000110","01111111110","01144141110","01111511110","01121121110","01111111110","00111111  100","00011111000","00010101000","00000000000"];
+      for(var y=0;y<11;y++)for(var x=0;x<11;x++){
+        var v=M[y][x];if(v==='0')continue;var col=base;
+        if(v==='2')col=stripe;else if(v==='4')col='#20303f';else if(v==='5')col='#e8879b';
+        g.fillStyle=col;g.fillRect(x,y,1,1);
+      }
+    }
+    paintCat('pozi','#f4f4f2','#e3e3df');
+    paintCat('kitir','#c98a4b','#8a5a2c');
+  })();
+  </script>
+  </body>
+  </html>
